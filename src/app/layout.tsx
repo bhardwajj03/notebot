@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "./components/Navbar";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  return (     
 
     <html lang="en" className='light'>
+      <Providers>
       <body className={cn(
         'min-h-screen font-sans antialiased grainy',
         inter.className
@@ -26,6 +28,7 @@ export default function RootLayout({
         <Navbar />
         {children}
       </body>
+      </Providers>
     </html>
   );
 }
