@@ -15,7 +15,7 @@ const Page = () => {
     onSuccess: ({ success }) => {
       if (success) {
         // Correct string interpolation for redirect
-        router.push(origin ? /${origin} : '/dashboard')
+        router.push(origin ? `/${origin}` : '/dashboard')
       }
     },
     onError: (err) => {
