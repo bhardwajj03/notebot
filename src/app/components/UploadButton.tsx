@@ -1,22 +1,28 @@
-'use Client'
+"use Client"
 
-import { Dialog , DialogTrigger } from "./ui/dialog"
 import { useState } from "react"
+import { Dialog,DialogTrigger } from "./ui/dialog"
+import { Button } from "./ui/Button"
+
 
 const UploadButton=()=>{
-    const [isopen,SetisOpen]=useState<boolean>(false)
+    const [isOpen,setIsOpen]=useState<boolean>(false)
      
     return(
         <Dialog 
-            open={isopen}
+            open={isOpen}
             onOpenChange={(v)=>{
                 if(!v){                                        // v= Value
-                    SetisOpen(v)
+                    setIsOpen(v)
                 }
             }}
         >
-            <DialogTrigger asChild>   //this is button also /* we're using aschild cause we want to give function to below button as both are buttons and html dont provide this func */
-                <button>Upload Pdf</button>
+              
+               
+            <DialogTrigger  //this is button also /* we're using aschild cause we want to give function to below button as both are buttons and html dont provide this func */
+                onClick={() => setIsOpen(true)}
+                asChild>
+                <Button>Upload PDF</Button>
             </DialogTrigger>
         </Dialog>
     )
