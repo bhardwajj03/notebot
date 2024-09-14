@@ -1,11 +1,13 @@
 
 "use Client"
 
-import { Ghost } from "lucide-react"
+import { Ghost, MessagesSquare, Plus, Trash } from "lucide-react"
 import { trpc } from "../_trpc/client"
 import UploadButton from "./UploadButton"
 import Skeleton from "react-loading-skeleton"
 import Link from "next/link"
+import {format} from "date-fns"
+import { Button } from "./ui/Button"
 
 
 const Dashboard=()=>{
@@ -28,8 +30,8 @@ const Dashboard=()=>{
                 <ul className="mt-8 grid grid-cols-1 gap-6 divide-y divide-zinc-200 md:grid-cols-2 lg:grid-cols-3">
                     {files.sort(
                         (a,b)=>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
+                            new Date(b.createdAt).getTime() -
+                            new Date(a.createdAt).getTime()
                 ).map((file)=>
                 <li key={file.id} 
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow:lg">
@@ -39,17 +41,27 @@ const Dashboard=()=>{
                                 <div className="flex-1 truncate">
                                     <div className="flex items-center space-x-3">
                                         <h3 className="truncate text-lg font-medium text-zinc-900">
-                                            {file.name}
+                                            {format (new Date(file.createdAt) ,"MMM yyyy")}
                                         </h3>
                                     </div>
                                 </div>
                             </div>
                         </Link>
                         <div className="px-6 mt-4 grid grid-cols-3 place-items-center py-2 gap-6 text-xs text-zinc-500">
-                            <div>
-                                
+                            <div className="flex items-center gap-2">
+                                <Plus className="h-4 w-4" />
+                                {files.createdAt}
                             </div>
-          ~              </div>
+                            <div className="flex items-center gap-2">
+                            <MessagesSquare  className="h-4 w-4"/>
+                            Mocked
+                        </div>
+
+                        <Button size='sm' className="w-full" variant="destructive">
+                            <Trash className="h-4 w-4" />
+                        </Button>
+                        </div>
+                       
                 </li>)}
                 </ul>
             ): isLoading ?(
