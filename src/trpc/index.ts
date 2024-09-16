@@ -45,7 +45,20 @@ export const  appRouter=router({
                 userId
             }
         })
-    })
+    }),
+
+    deleteFile:privateProcedure.input(
+        z.object({id:z.string()})
+    ).mutation(async({ctx,input})=>{
+        const {userId}=ctx
+
+        const file=await db.file.findFirst({
+            where:{
+                id:input.id,
+                userId
+            }
+        })
+    }),
     
 
 });
