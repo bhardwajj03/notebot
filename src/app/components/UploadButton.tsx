@@ -1,4 +1,4 @@
-"use Client"
+"use client"
 
 
 import { Dialog,DialogTrigger } from "./ui/dialog"
