@@ -1,5 +1,5 @@
 
-"use Client"
+"use client"
 
 import { Ghost, MessagesSquare, Plus, Trash } from "lucide-react"
 import { trpc } from "../_trpc/client"
@@ -8,7 +8,7 @@ import Skeleton from "react-loading-skeleton"
 import Link from "next/link"
 import {format} from "date-fns"
 import { Button } from "./ui/Button"
-import { useState } from "react"
+
 
 
 const Dashboard=()=>{
@@ -35,15 +35,17 @@ const Dashboard=()=>{
                             new Date(b.createdAt).getTime() -
                             new Date(a.createdAt).getTime()
                 ).map((file)=>
-                <li key={file.id} 
+                <li 
+                key={file.id} 
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow:lg">
-                        <Link href={`/dashboard/${file.id}`} className="flex flex-col gap-2">
+                        <Link href={`/dashboard/${file.id}`}
+                         className="flex flex-col gap-2">
                             <div className="pt-6 px-6 items-center justify-between space-x-6">
                                 <div className="h-10 w-10  flex-shrink-0 rounded-full bg-gradient-t0-r from-cyan-500 to blue-500 " />
                                 <div className="flex-1 truncate">
                                     <div className="flex items-center space-x-3">
                                         <h3 className="truncate text-lg font-medium text-zinc-900">
-                                            {format (new Date(file.createdAt) ,"MMM yyyy")}
+                                            {file.name}
                                         </h3>
                                     </div>
                                 </div>

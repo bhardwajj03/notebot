@@ -58,6 +58,8 @@ export const  appRouter=router({
                 userId
             }
         })
+
+        if(!file) throw new TRPCError({code:'NOT_FOUND'})
     }),
     
 
