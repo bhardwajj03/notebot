@@ -54,4 +54,4 @@ const Page =async({params}:PageProps)=>{
               )  
             }
             
-            export default Page
+export default Page

@@ -7,10 +7,25 @@ import { useState } from "react"
 import Dropzone from 'react-dropzone'
 import { Cloud } from "lucide-react"
 
+
+const UploadDropzone=()=>{
+    return <Dropzone multiple={false}>
+        {({getRootProps,getInputProps,acceptedFiles})=>(
+            <div {...getRootProps()} className="border h-64 m-4 border-dashed border-gray-400 rounded-lg"></div>
+        )}
+    </Dropzone>
+}
+
 const UploadButton=()=>{
     const [isOpen,setIsOpen]=useState<boolean>(false)
      
     const UploadDropzone =()=>{
+
+        const [isUploading,SetIsUploading]=useState<boolean>(true)
+        const [uploadProgress,SetUploadProgress]=useState<number>(0)
+
+
+
        return (
             <Dropzone multiple={false} onDrop={(acceptedFiles)=>{
                 console.log(acceptedFiles)
@@ -50,7 +65,7 @@ const UploadButton=()=>{
             </DialogTrigger>
 
             <DialogContent>
-                <UploadDropzone />
+               <UploadDropzone />
             </DialogContent>
         </Dialog>
     )
