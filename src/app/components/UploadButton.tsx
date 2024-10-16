@@ -7,11 +7,13 @@ import { useState } from "react"
 import Dropzone from 'react-dropzone'
 import { Cloud, File } from "lucide-react"
 import { Progress } from "./ui/progress"
-
+import { useUploadThing } from "@/lib/uploadthing"
 
 const UploadDropzone=()=>{
     const [isUploading,SetIsUploading]=useState<boolean>(true)
     const [uploadProgress,SetUploadProgress]=useState<number>(0)  
+
+    const {startUpload} =useUploadThing("pdfUploader")
 
     const startSimulatedProgress=()=>{
         SetUploadProgress(0)
@@ -35,6 +37,10 @@ const UploadDropzone=()=>{
         const progressInterval=startSimulatedProgress()
 
         // handle the file uploading
+        const res=await startUpload(acceptedFile)
+        if(!res){
+            
+        }
 
         await new Promise((resolve)=>setTimeout(resolve,1500))
         //after uploading we can clear the interval
