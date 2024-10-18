@@ -8,10 +8,13 @@ import Dropzone from 'react-dropzone'
 import { Cloud, File } from "lucide-react"
 import { Progress } from "./ui/progress"
 import { useUploadThing } from "@/lib/uploadthing"
+import { useToast } from "./ui/use-toast"
 
 const UploadDropzone=()=>{
     const [isUploading,SetIsUploading]=useState<boolean>(true)
     const [uploadProgress,SetUploadProgress]=useState<number>(0)  
+
+    const {toast}=useToast()
 
     const {startUpload} =useUploadThing("pdfUploader")
 
@@ -39,7 +42,11 @@ const UploadDropzone=()=>{
         // handle the file uploading
         const res=await startUpload(acceptedFile)
         if(!res){
-            
+            return toast({
+                title:"something went wrong",
+                description:"Please try again later",
+                variant:"destructive"
+            })
         }
 
         await new Promise((resolve)=>setTimeout(resolve,1500))
