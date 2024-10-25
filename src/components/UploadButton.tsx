@@ -45,9 +45,21 @@ const UploadDropzone=()=>{
             return toast({
                 title:"something went wrong",
                 description:"Please try again later",
-                variant:"destructive"
+                variant:"destructive",
             })
         }
+
+        // now we get the response
+        const [fileResponse]=res
+        const key=fileResponse?.key
+        if(!key){
+            return toast({
+                title:"something went wrong",
+                description:"Please try again later",
+                variant:"destructive",
+            })
+        }
+
 
         await new Promise((resolve)=>setTimeout(resolve,1500))
         //after uploading we can clear the interval
