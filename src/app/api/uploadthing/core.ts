@@ -1,3 +1,4 @@
+import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 import { createUploadthing, type FileRouter } from "uploadthing/next";
@@ -10,7 +11,7 @@ const auth = (req: Request) => ({ id: "fakeId" }); // Fake auth function
 
 export const ourFileRouter = {
   
-  pdfUploader: f({ image: { maxFileSize: "4MB" } })
+  pdfUploader: f({ pdf: { maxFileSize: "4MB" } })
    
     .middleware(async ({ req }) => {
       const {getUser}=getKindeServerSession()
@@ -19,7 +20,17 @@ export const ourFileRouter = {
       if(!user || !user.id) throw new Error('Unauthorized')
       return {userId:user.id };
     })
-    .onUploadComplete(async ({ metadata, file }) => {}),
+    .onUploadComplete(async ({ metadata, file }) => {
+      const createdFile=await db.file.create({
+        data:{
+          key:file.key,
+          name:file.name,
+          userId:metadata.userId,
+          url: `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
+          uploadStatus : "PROCESSING"
+        }
+      })
+    }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
